@@ -1,0 +1,108 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordenadas AES CLESA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: white;
+            color: #004B87;
+            text-align: center;
+        }
+        .header {
+            background-color: #004B87; /* Azul oscuro */
+            color: white;
+            padding: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .welcome {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 20px;
+            border: 2px solid #004B87; /* Contorno azul oscuro */
+            border-radius: 5px;
+            width: 80%;
+            max-width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-right: 10px;
+            background-color: #004B87; /* Azul oscuro */
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #002F5D; /* Azul más oscuro al hacer hover */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Franja azul con el texto -->
+    <div class="header">
+        <h1>Coordenadas AES CLESA</h1>
+    </div>
+
+    <!-- Texto de bienvenida -->
+    <div class="welcome">
+        <p>Bienvenido</p>
+    </div>
+
+    <!-- Campo para ingresar número -->
+    <input type="number" id="numero" placeholder="Ingresa un número">
+
+    <!-- Botones para obtener coordenadas y limpiar el campo -->
+    <div>
+        <button onclick="obtenerCoordenadas()">Obtener Coordenadas</button>
+        <button onclick="limpiarCampo()">Limpiar</button>
+    </div>
+
+    <script>
+        function obtenerCoordenadas() {
+            const numero = document.getElementById('numero').value;
+
+            // Números que comparten las mismas coordenadas
+            const grupo1 = ['5559996', '5505720', '96291445'];
+            const grupo2 = ['5545166', '5491465', '96263811'];
+
+            let coordenadas;
+
+            if (grupo1.includes(numero)) {
+                coordenadas = { lat: 13.7174799, lng: -89.6290949 };
+            } else if (grupo2.includes(numero)) {
+                coordenadas = { lat: 13.9373285, lng: -89.7732159 };
+            } else {
+                alert('Número no existe.');
+                return;
+            }
+
+            const abrirEnApp = confirm("¿Deseas abrir Google Maps en la aplicación?");
+            if (abrirEnApp) {
+                const urlApp = `https://www.google.com/maps/search/?api=1&query=${coordenadas.lat},${coordenadas.lng}`;
+                window.location.href = urlApp;
+            } else {
+                const urlWeb = `https://www.google.com/maps?q=${coordenadas.lat},${coordenadas.lng}`;
+                window.location.href = urlWeb;
+            }
+        }
+
+        function limpiarCampo() {
+            document.getElementById('numero').value = '';
+        }
+    </script>
+
+</body>
+</html>
